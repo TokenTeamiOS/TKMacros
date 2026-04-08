@@ -15,15 +15,17 @@ def inject_tk_swift_flags_if_needed(installer)
   flags_to_inject = '-load-plugin-executable ${PODS_ROOT}/TKMacros/Prebuilt/TKMacrosExecutable#TKMacrosExecutable -enable-experimental-feature SymbolLinkageMarkers'
   dependency_name = 'TKMacros'
 
-  # Build a name-to-target map for resolving transitive dependencies
-  target_map = {}
-  installer.pods_project.targets.each do |t|
-    target_map[t.name] = t
-  end
-
   # Handle both pods_project and generated_projects (when using generate_multiple_pod_projects)
   all_projects = [installer.pods_project]
   all_projects += installer.generated_projects if installer.respond_to?(:generated_projects)
+
+  # Build a name-to-target map from ALL projects for resolving transitive dependencies
+  target_map = {}
+  all_projects.each do |project|
+    project.targets.each do |t|
+      target_map[t.name] = t
+    end
+  end
 
   all_projects.each do |project|
     project.targets.each do |target|
