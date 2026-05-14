@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'TKMacros'
-  s.version          = '0.0.1'
+  s.version          = '0.0.2'
   s.summary          = 'TK Macros'
   s.homepage         = 'https://github.com/TokenTeamiOS/TKMacros'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
